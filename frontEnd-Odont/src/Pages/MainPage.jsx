@@ -3,8 +3,10 @@ import { Menubar } from 'primereact/menubar';
 import { InputText } from 'primereact/inputtext';
 import { Badge } from 'primereact/badge';
 import { Avatar } from 'primereact/avatar';
+import { useNavigate } from "react-router-dom";
 
 export const MainPage = () => {
+    const navigate = useNavigate();
     const itemRenderer = (item) => (
         <a className="flex align-items-center p-menuitem-link">
             <span className={item.icon} />
@@ -21,22 +23,18 @@ export const MainPage = () => {
                 {
                     label: 'Registrar Paciente',
                     icon: 'pi pi-user-plus',
-                    template: itemRenderer
-                },
-                {
-                    label: 'Actualizar Paciente',
-                    icon: 'pi pi-user-edit',
-                    template: itemRenderer
-                },
-                {
-                    label: 'Eliminar Paciente',
-                    icon: 'pi pi-user-minus',
-                    template: itemRenderer
+                    template: itemRenderer,
+                    command: () => {
+                        navigate("/index/registrar_paciente", { replace: true });
+                    },
                 },
                 {
                     label: 'Visualizar Paciente',
                     icon: 'pi pi-address-book',
-                    template: itemRenderer
+                    template: itemRenderer,
+                    command: () => {
+                        navigate("/index/visualizar_paciente", { replace: true });
+                    },
                 }
             ]
         },
@@ -46,12 +44,12 @@ export const MainPage = () => {
             items: [
                 {
                     label: 'Registrar Ficha',
-                    icon: 'pi pi-user-plus',
+                    icon: 'pi pi-save',
                     template: itemRenderer
                 },
                 {
                     label: 'Visualizar Ficha',
-                    icon: 'pi pi-user-edit',
+                    icon: 'pi pi-eye',
                     template: itemRenderer
                 },
             ]
@@ -63,10 +61,10 @@ export const MainPage = () => {
         }
     ];
 
-    const start = <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="40" className="mr-2"></img>;
+    const start = <img alt="logo" src="https://cdn-icons-png.flaticon.com/128/3467/3467830.png" height="40" className="mr-2"></img>;
     const end = (
         <div className="flex align-items-center gap-2">
-            <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
+            <img alt="user" src="https://cdn-icons-png.flaticon.com/128/3135/3135715.png" shape="circle" height="35" />
         </div>
     );
 
