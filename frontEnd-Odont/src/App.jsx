@@ -5,7 +5,10 @@ import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
 import "./App.css";
 import { LoginPage } from "./Pages/LoginPage";
-
+import { MainPage } from "./Pages/MainPage";
+import { AddPacient } from "./Pages/AddPacient";
+import { ViewPacient } from "./Pages/ViewPacient";
+import { EditPaciente } from "./Pages/EditPacient";
 import NavBar from "./Components/NavBar";
 import MainPage from "./Pages/MainPage";
 import FichaPage from "./Pages/FichaPage";
@@ -22,6 +25,10 @@ function App() {
           <Route path="/index" element={<MainPage />}></Route>
           <Route path="/registrar-ficha" element={<FichaPage />}></Route>
           <Route path="/ver-ficha" element={<FichaPageList />}></Route>
+          <Route path="/index" element={<MainPage/>}></Route>
+          <Route path="/index/registrar_paciente" element={<AddPacient/>}></Route>
+          <Route path="/index/visualizar_paciente" element={<ViewPacient/>}></Route>
+          <Route path="/index/editar_paciente/:id" element={<EditPaciente/>}></Route>
         </Routes>
       </BrowserRouter>
     </>
