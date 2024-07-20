@@ -1,41 +1,32 @@
-import axios from "axios";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { useEffect, useState } from "react";
 
 export default function FichasList() {
   const [fichas, setFichas] = useState([]);
-  const [pacientes, setPacientes] = useState({});
 
-  const getPacientes = async (data) => {
-    try {
-      const request = await fetch("http://192.168.192.10:8081/api/pacientes");
-      const response = await request.json();
-      for (let index = 0; index < response.length; index++) {
-        if (data[index].paciente_id == response[index].id) {
-          setPacientes(response[index]);
-          console.log(pacientes);
-        }
-      }
-      return response;
-    } catch (error) {
-      console.error("Error fetching pacientes:", error);
-    }
-  };
-
-  const getFichas = async () => {
+  const getFichasWithPacientes = async () => {
     try {
       const request = await fetch("http://localhost:8080/api/fichas");
-      const response = await request.json();
-      return response;
+      const fichasResponse = await request.json();
+      const enrichedFichas = await Promise.all(
+        fichasResponse.map(async (ficha) => {
+          const pacienteRequest = await fetch(
+            `http://192.168.192.10:8081/api/pacientes/${ficha.paciente_id}`
+          );
+          const pacienteData = await pacienteRequest.json();
+          return { ...ficha, paciente: pacienteData };
+        })
+      );
+      return enrichedFichas;
     } catch (e) {
       console.error(e);
     }
   };
+
   useEffect(() => {
-    getFichas().then((data) => {
-      getPacientes(data);
-      setFichas(data);
+    getFichasWithPacientes().then((enrichedFichas) => {
+      setFichas(enrichedFichas);
     });
   }, []);
 
@@ -46,7 +37,10 @@ export default function FichasList() {
       showGridlines
       tableStyle={{ minWidth: "50rem" }}
     >
-      <Column field={pacientes.name} header="Nombre del Paciente"></Column>
+      <Column
+        field={(rowData) => rowData.paciente.name}
+        header="Nombre del Paciente"
+      ></Column>
       <Column field="budget" header="Presupuesto"></Column>
       <Column field="description" header="Descripción"></Column>
       <Column field="tratamientos" header="Tratamientos"></Column>

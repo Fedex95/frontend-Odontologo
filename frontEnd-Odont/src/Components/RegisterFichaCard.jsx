@@ -73,6 +73,7 @@ export default function RegisterFichaCard() {
       />
     </>
   );
+  
   return (
     <div
       style={{ height: "110hv" }}
@@ -107,6 +108,7 @@ export default function RegisterFichaCard() {
           <div className="p-inputgroup">
             <span className="p-inputgroup-addon">$</span>
             <InputNumber
+              required
               mode="currency"
               currency="USD"
               locale="en-US"
@@ -121,6 +123,7 @@ export default function RegisterFichaCard() {
             Descripción
           </label>
           <InputTextarea
+            required
             id="description"
             type="text"
             onChange={(e) => setDescription(e.target.value)}
@@ -130,6 +133,7 @@ export default function RegisterFichaCard() {
             Tratamientos
           </label>
           <InputTextarea
+            required
             id="treatment"
             type="text"
             onChange={(e) => setTratamiento(e.target.value)}
