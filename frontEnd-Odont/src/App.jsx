@@ -9,6 +9,7 @@ import { LoginPage } from "./Pages/LoginPage";
 import NavBar from "./Components/NavBar";
 import MainPage from "./Pages/MainPage";
 import FichaPage from "./Pages/FichaPage";
+import FichaPageList from "./Pages/FichaPageList";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
           <Route path="/" element={<LoginPage />}></Route>
           <Route path="/index" element={<MainPage />}></Route>
           <Route path="/registrar-ficha" element={<FichaPage />}></Route>
-          <Route path="/ver-ficha" element={<FichaPage />}></Route>
+          <Route path="/ver-ficha" element={<FichaPageList />}></Route>
         </Routes>
       </BrowserRouter>
     </>
