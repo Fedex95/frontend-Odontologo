@@ -11,7 +11,6 @@ export default function OdontogramaPage() {
     try {
       const request = await fetch("http://192.168.192.10:8081/api/pacientes");
       const response = await request.json();
-      console.log(response[0]);
       return response;
     } catch (error) {
       console.error("Error fetching pacientes:", error);
@@ -19,6 +18,14 @@ export default function OdontogramaPage() {
   };
 
   useEffect(() => {
+    try {
+      setSelectedPaciente(
+        JSON.parse(localStorage.getItem("selectedPatient")).name
+      );
+    } catch (e) {
+      console.log("no selected paciente");
+    }
+
     getPacientes().then((data) => {
       setPacientes(data);
     });
@@ -52,7 +59,14 @@ export default function OdontogramaPage() {
           <div className="card flex justify-content-center">
             <CascadeSelect
               value={selectedPaciente}
-              onChange={(e) => setSelectedPaciente(e.value)}
+              onChange={(e) => {
+                setSelectedPaciente(e.value);
+                localStorage.setItem(
+                  "selectedPatient",
+                  JSON.stringify(e.value)
+                );
+                window.location.reload();
+              }}
               options={pacientes}
               optionLabel="name"
               optionGroupLabel="name"

@@ -1,7 +1,40 @@
 import Raphael from "raphael";
 import { useEffect } from "react";
 export default function Odontograma() {
+  const selectedPatient = JSON.parse(localStorage.getItem("selectedPatient"));
+  const getCaries = async (selectedPatient) => {
+    const request = await fetch("http://192.168.192.10:8082/api/odontograma");
+    const response = await request.json();
+
+    const filtered = response.filter(
+      (e) => e.paciente_id == selectedPatient.id
+    );
+
+    return filtered;
+  };
+
   useEffect(() => {
+    if (selectedPatient) {
+      getCaries(selectedPatient).then((data) => {
+        data.forEach((e) => {
+          if (e.caries_pos_X > 0 && e.caries_pos_Y > 0) {
+            eval(
+              `tooth_${e.caries_pos_X}${e.caries_pos_Y}.attr({ fill: "#424242" })`
+            );
+          }
+          if (e.zarro_pos_X > 0 && e.zarro_pos_Y > 0) {
+            eval(
+              `tooth_${e.zarro_pos_X}${e.zarro_pos_Y}.attr({ fill: "#828156" })`
+            );
+          }
+          if (e.manchas_pos_X > 0 && e.manchas_pos_Y > 0) {
+            eval(
+              `tooth_${e.manchas_pos_X}${e.manchas_pos_Y}.attr({ fill: "#1693A5" })`
+            );
+          }
+        });
+      });
+    }
     var paper = new Raphael(
       document.getElementById("canvas_container"),
       289.61084,
@@ -1066,7 +1099,7 @@ export default function Odontograma() {
 
   return (
     <>
-      <div >
+      <div>
         <div className="pt-5 mt-5" id="canvas_container"></div>
       </div>
     </>
