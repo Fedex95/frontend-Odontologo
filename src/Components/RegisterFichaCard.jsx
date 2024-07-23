@@ -18,7 +18,7 @@ export default function RegisterFichaCard() {
 
   const getPacientes = async () => {
     try {
-      const request = await fetch("http://192.168.192.10:8081/api/pacientes");
+      const request = await fetch("http://localhost:8081/api/pacientes");
       const response = await request.json();
       console.log(response[0]);
       return response;
@@ -36,7 +36,7 @@ export default function RegisterFichaCard() {
   const handleSave = async () => {
     try {
       const request = await axios.post(
-        "http://192.168.192.10:8080/api/fichas/add",
+        "http://localhost:8080/api/fichas/add",
         {
           budget: presupuesto.value,
           paciente_id: selectedPaciente.id,

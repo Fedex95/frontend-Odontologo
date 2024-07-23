@@ -7,12 +7,12 @@ export default function FichasList() {
 
   const getFichasWithPacientes = async () => {
     try {
-      const request = await fetch("http://192.168.192.10:8080/api/fichas");
+      const request = await fetch("http://localhost:8080/api/fichas");
       const fichasResponse = await request.json();
       const enrichedFichas = await Promise.all(
         fichasResponse.map(async (ficha) => {
           const pacienteRequest = await fetch(
-            `http://192.168.192.10:8081/api/pacientes/${ficha.paciente_id}`
+            `http://localhost:8081/api/pacientes/${ficha.paciente_id}`
           );
           const pacienteData = await pacienteRequest.json();
           return { ...ficha, paciente: pacienteData };

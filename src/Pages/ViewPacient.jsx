@@ -14,7 +14,7 @@ export const ViewPacient = () => {
 
   const handleDeletePaciente = async (pacienteId) => {
     try {
-      await axios.delete("http://192.168.192.10:8081/api/pacientes/delete", {
+      await axios.delete("http://localhost:8081/api/pacientes/delete", {
         data: { id: pacienteId },
       });
 
@@ -35,7 +35,7 @@ export const ViewPacient = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.192.10:8081/api/pacientes")
+      .get("http://localhost:8081/api/pacientes")
       .then((response) => {
         setPacientes(response.data);
       })
@@ -56,7 +56,7 @@ export const ViewPacient = () => {
       return;
     } else {
       try {
-        await axios.put(`http://192.168.192.10:8081/api/pacientes/update`, {
+        await axios.put(`http://localhost:8081/api/pacientes/update`, {
           id: paciente[0].id,
           name: newNombrePaciente,
           surname: newSurnamePaciente,

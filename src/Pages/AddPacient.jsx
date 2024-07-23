@@ -15,7 +15,7 @@ export const AddPacient = () => {
 
   const handleAgregarPacientes = () => {
     axios
-      .post("http://192.168.192.10:8081/api/pacientes/create", {
+      .post("http://localhost:8081/api/pacientes/create", {
         name: nombrePaciente,
         surname: apellidoPaciente,
         address: direccionPaciente,
