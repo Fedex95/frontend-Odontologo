@@ -9,7 +9,7 @@ export default function OdontogramaPage() {
 
   const getPacientes = async () => {
     try {
-      const request = await fetch("http://192.168.192.10:8081/api/pacientes");
+      const request = await fetch("http://localhost:8081/api/pacientes");
       const response = await request.json();
       return response;
     } catch (error) {

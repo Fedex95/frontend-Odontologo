@@ -3,7 +3,7 @@ import { useEffect } from "react";
 export default function Odontograma() {
   const selectedPatient = JSON.parse(localStorage.getItem("selectedPatient"));
   const getCaries = async (selectedPatient) => {
-    const request = await fetch("http://192.168.192.10:8082/api/odontograma");
+    const request = await fetch("http://localhost:8082/api/odontograma");
     const response = await request.json();
 
     const filtered = response.filter(

@@ -17,7 +17,7 @@ export const LoginPage = () => {
 
   const getRecepcion = async () => {
     try {
-      const request = await fetch("http://192.168.192.10:8081/api/recepcion");
+      const request = await fetch("http://localhost:8081/api/recepcion");
       const response = await request.json();
       return response;
     } catch (error) {
@@ -26,7 +26,7 @@ export const LoginPage = () => {
   };
   const getOdontologos = async () => {
     try {
-      const request = await fetch("http://192.168.192.10:8081/api/odontologos");
+      const request = await fetch("http://localhost:8081/api/odontologos");
       const response = await request.json();
       return response;
     } catch (error) {
