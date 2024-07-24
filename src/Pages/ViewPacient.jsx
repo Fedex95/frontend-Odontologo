@@ -51,39 +51,34 @@ export const ViewPacient = () => {
   const [newPhonePaciente, setNewPhonePaciente] = useState("");
 
   const handleEditarPaciente = async (paciente) => {
-    if (!visible) {
-      setVisible(true);
-      return;
-    } else {
-      try {
-        await axios.put(`http://localhost:8081/api/pacientes/update`, {
-          id: paciente[0].id,
-          name: newNombrePaciente,
-          surname: newSurnamePaciente,
-          address: newAddressPaciente,
-          phone: newPhonePaciente,
-          email: newEmailPaciente,
-        });
-        console.log("Paciente actualizado con éxito.");
-        setNewNombrePaciente("");
-        setNewSurnamePaciente("");
-        setNewAddressPaciente("");
-        setNewEmailPaciente("");
-        setNewPhonePaciente("");
-        toast.current.show({
-          severity: "success",
-          summary: "Éxito",
-          detail: `Has actualizado el paciente`,
-        });
-        window.location.reload();
-      } catch (error) {
-        console.error("Error al actualizar el paciente:", error);
-        toast.current.show({
-          severity: "error",
-          summary: "Error",
-          detail: `Ha ocurrido un error al actualizar el paciente`,
-        });
-      }
+    try {
+      await axios.put(`http://localhost:8081/api/pacientes/update`, {
+        id: paciente,
+        name: newNombrePaciente,
+        surname: newSurnamePaciente,
+        address: newAddressPaciente,
+        phone: newPhonePaciente,
+        email: newEmailPaciente,
+      });
+      console.log("Paciente actualizado con éxito.");
+      setNewNombrePaciente("");
+      setNewSurnamePaciente("");
+      setNewAddressPaciente("");
+      setNewEmailPaciente("");
+      setNewPhonePaciente("");
+      toast.current.show({
+        severity: "success",
+        summary: "Éxito",
+        detail: `Has actualizado el paciente`,
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error("Error al actualizar el paciente:", error);
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: `Ha ocurrido un error al actualizar el paciente`,
+      });
     }
   };
 
@@ -108,81 +103,81 @@ export const ViewPacient = () => {
                   label="Eliminar"
                 />
                 <Button
-                  onClick={() => handleEditarPaciente(pacientes.id)}
+                  onClick={() => setVisible(true)}
                   icon="pi pi-pencil"
                   className="p-button-warning"
                   label="Editar"
                   style={{ marginLeft: "10px" }}
                 />
+                <Dialog
+                  header="Actualizar datos"
+                  visible={visible}
+                  style={{ width: "50vw" }}
+                  onHide={() => {
+                    if (!visible) return;
+                    setVisible(false);
+                  }}
+                >
+                  <form
+                    onSubmit={(e) => e.preventDefault()}
+                    style={{ textAlign: "center" }}
+                  >
+                    <Toast ref={toast} />
+                    <h1>Editar Paciente</h1>
+                    <div>
+                      <InputText
+                        value={newNombrePaciente}
+                        onChange={(e) => setNewNombrePaciente(e.target.value)}
+                        type="text"
+                        placeholder="Nombre"
+                      />
+                    </div>
+                    <div>
+                      <InputText
+                        value={newSurnamePaciente}
+                        onChange={(e) => setNewSurnamePaciente(e.target.value)}
+                        type="text"
+                        placeholder="Apellido"
+                      />
+                    </div>
+                    <div>
+                      <InputText
+                        value={newEmailPaciente}
+                        onChange={(e) => setNewEmailPaciente(e.target.value)}
+                        type="email"
+                        placeholder="E-mail"
+                      />
+                    </div>
+                    <div>
+                      <InputText
+                        value={newAddressPaciente}
+                        onChange={(e) => setNewAddressPaciente(e.target.value)}
+                        type="text"
+                        placeholder="Direccion"
+                      />
+                    </div>
+                    <div>
+                      <InputText
+                        value={newPhonePaciente}
+                        onChange={(e) => setNewPhonePaciente(e.target.value)}
+                        type="text"
+                        placeholder="Telefono"
+                      />
+                    </div>
+                    <Button
+                      icon="pi pi-plus-circle"
+                      rounded
+                      outlined
+                      severity="success"
+                      onClick={() => handleEditarPaciente(pacientes.id)}
+                      style={{ marginLeft: "10px", marginTop: "10px" }}
+                    />
+                  </form>
+                </Dialog>
               </div>
             )}
           />
         </DataTable>
-        <Dialog
-          header="Actualizar datos"
-          visible={visible}
-          style={{ width: "50vw" }}
-          onHide={() => {
-            if (!visible) return;
-            setVisible(false);
-          }}
-        >
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            style={{ textAlign: "center" }}
-          >
-            <Toast ref={toast} />
-            <h1>Editar Paciente</h1>
-            <div>
-              <InputText
-                value={newNombrePaciente}
-                onChange={(e) => setNewNombrePaciente(e.target.value)}
-                type="text"
-                placeholder="Nombre"
-              />
-            </div>
-            <div>
-              <InputText
-                value={newSurnamePaciente}
-                onChange={(e) => setNewSurnamePaciente(e.target.value)}
-                type="text"
-                placeholder="Apellido"
-              />
-            </div>
-            <div>
-              <InputText
-                value={newEmailPaciente}
-                onChange={(e) => setNewEmailPaciente(e.target.value)}
-                type="email"
-                placeholder="E-mail"
-              />
-            </div>
-            <div>
-              <InputText
-                value={newAddressPaciente}
-                onChange={(e) => setNewAddressPaciente(e.target.value)}
-                type="text"
-                placeholder="Direccion"
-              />
-            </div>
-            <div>
-              <InputText
-                value={newPhonePaciente}
-                onChange={(e) => setNewPhonePaciente(e.target.value)}
-                type="text"
-                placeholder="Telefono"
-              />
-            </div>
-            <Button
-              icon="pi pi-plus-circle"
-              rounded
-              outlined
-              severity="success"
-              onClick={() => handleEditarPaciente(pacientes)}
-              style={{ marginLeft: "10px", marginTop: "10px" }}
-            />
-          </form>
-        </Dialog>
       </div>
     </>
   );

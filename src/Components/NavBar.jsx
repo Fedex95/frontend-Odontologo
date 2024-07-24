@@ -1,6 +1,5 @@
 import { Menubar } from "primereact/menubar";
 import { Badge } from "primereact/badge";
-import { Avatar } from "primereact/avatar";
 import { useNavigate } from "react-router-dom";
 export default function NavBar() {
   const navigate = useNavigate();
@@ -77,15 +76,12 @@ export default function NavBar() {
       alt="logo"
       src="https://img.freepik.com/vector-gratis/plantilla-logotipo-consultorio-medico_23-2149665611.jpg?size=626&ext=jpg"
       height="40"
-      className="mr-2"
+      className="mr-2 border-round"
     ></img>
   );
   const end = (
     <div className="flex align-items-center gap-2">
-      <Avatar
-        image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png"
-        shape="circle"
-      />
+      <i className="pi pi-user mr-2 " style={{ fontSize: "1.5rem" }}></i>
     </div>
   );
 

@@ -35,25 +35,23 @@ export default function RegisterFichaCard() {
 
   const handleSave = async () => {
     try {
-      const request = await axios.post(
-        "http://localhost:8080/api/fichas/add",
-        {
+      const request = await axios
+        .post("http://localhost:8080/api/fichas/add", {
           budget: presupuesto.value,
           paciente_id: selectedPaciente.id,
           medication: receta,
           tratamientos: tratamiento,
           description: description,
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
-        setPresupuesto("");
-        setDescription("");
-        setReceta("");
-        setTratamiento("");
-    })
-      const response = await request.json();
-      return response;
+        })
+        .then((response) => {
+          console.log(response.data);
+          setPresupuesto("");
+          setDescription("");
+          setReceta("");
+          setTratamiento("");
+        });
+
+      return request;
     } catch (error) {
       console.error("Error fetching pacientes:", error);
     }
@@ -61,7 +59,7 @@ export default function RegisterFichaCard() {
       severity: "success",
       summary: "ÉXITO",
       detail: `La operación se ha realizado con éxito`,
-  });
+    });
   };
 
   const header = (
@@ -86,86 +84,86 @@ export default function RegisterFichaCard() {
       />
     </>
   );
-  
+
   return (
     <>
-    <Toast ref={toast} />
-    <div
-      style={{ height: "110hv" }}
-      className="p-5 flex justify-content-center align-content-center"
-    >
-      <Card
-        title="Registar una nueva ficha técnica"
-        footer={footer}
-        header={header}
-        className="md:w-25rem"
+      <Toast ref={toast} />
+      <div
+        style={{ height: "110hv" }}
+        className="p-5 flex justify-content-center align-content-center"
       >
-        <label className="flex field" htmlFor="budget">
-          Paciente
-        </label>
-        <div className="card flex justify-content-center">
-          <CascadeSelect
-            value={selectedPaciente}
-            onChange={(e) => setSelectedPaciente(e.value)}
-            options={pacientes}
-            optionLabel="name"
-            optionGroupLabel="name"
-            optionGroupChildren={["states", "cities"]}
-            className="w-full md:w-14rem"
-            breakpoint="767px"
-            placeholder="Selecciona un paciente"
-            style={{ minWidth: "23rem" }}
-          />
-        </div>
-        <div className="py-5 field">
-          <label htmlFor="budget">Presupuesto</label>
-
-          <div className="p-inputgroup">
-            <span className="p-inputgroup-addon">$</span>
-            <InputNumber
-              required
-              mode="currency"
-              currency="USD"
-              locale="en-US"
-              inputId="currency-us"
-              id="budget"
-              type="text"
-              onChange={setPresupuesto}
+        <Card
+          title="Registar una nueva ficha técnica"
+          footer={footer}
+          header={header}
+          className="md:w-25rem"
+        >
+          <label className="flex field" htmlFor="budget">
+            Paciente
+          </label>
+          <div className="card flex justify-content-center">
+            <CascadeSelect
+              value={selectedPaciente}
+              onChange={(e) => setSelectedPaciente(e.value)}
+              options={pacientes}
+              optionLabel="name"
+              optionGroupLabel="name"
+              optionGroupChildren={["states", "cities"]}
+              className="w-full md:w-14rem"
+              breakpoint="767px"
+              placeholder="Selecciona un paciente"
+              style={{ minWidth: "23rem" }}
             />
           </div>
+          <div className="py-5 field">
+            <label htmlFor="budget">Presupuesto</label>
 
-          <label className="pt-5" htmlFor="description">
-            Descripción
-          </label>
-          <InputTextarea
-            required
-            id="description"
-            type="text"
-            onChange={(e) => setDescription(e.target.value)}
-            className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-          />
-          <label className="pt-5" htmlFor="treatment">
-            Tratamientos
-          </label>
-          <InputTextarea
-            required
-            id="treatment"
-            type="text"
-            onChange={(e) => setTratamiento(e.target.value)}
-            className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-          />
-          <label className="pt-5" htmlFor="medication">
-            Receta
-          </label>
-          <InputTextarea
-            id="medication"
-            type="text"
-            onChange={(e) => setReceta(e.target.value)}
-            className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-          />
-        </div>
-      </Card>
-    </div>
+            <div className="p-inputgroup">
+              <span className="p-inputgroup-addon">$</span>
+              <InputNumber
+                required
+                mode="currency"
+                currency="USD"
+                locale="en-US"
+                inputId="currency-us"
+                id="budget"
+                type="text"
+                onChange={setPresupuesto}
+              />
+            </div>
+
+            <label className="pt-5" htmlFor="description">
+              Descripción
+            </label>
+            <InputTextarea
+              required
+              id="description"
+              type="text"
+              onChange={(e) => setDescription(e.target.value)}
+              className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <label className="pt-5" htmlFor="treatment">
+              Tratamientos
+            </label>
+            <InputTextarea
+              required
+              id="treatment"
+              type="text"
+              onChange={(e) => setTratamiento(e.target.value)}
+              className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <label className="pt-5" htmlFor="medication">
+              Receta
+            </label>
+            <InputTextarea
+              id="medication"
+              type="text"
+              onChange={(e) => setReceta(e.target.value)}
+              className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+          </div>
+        </Card>
+      </div>
     </>
   );
 }
