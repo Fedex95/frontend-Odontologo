@@ -1,6 +1,18 @@
+import axios from "axios";
+import { Button } from "primereact/button";
+import { Dialog } from "primereact/dialog";
+import { Dropdown } from "primereact/dropdown";
 import Raphael from "raphael";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 export default function Odontograma() {
+  const [visible, setVisible] = useState(false);
+  const [selected, setSelected] = useState("");
+  const [selectedTooth, setSelectedTooth] = useState("");
+  const enfermedades = [
+    { name: "Caries" },
+    { name: "Zarro" },
+    { name: "Manchas" },
+  ];
   const selectedPatient = JSON.parse(localStorage.getItem("selectedPatient"));
   const getCaries = async (selectedPatient) => {
     const request = await fetch("http://localhost:8082/api/odontograma");
@@ -11,6 +23,23 @@ export default function Odontograma() {
     );
 
     return filtered;
+  };
+  const handleRegister = async (text) => {
+    try {
+      console.log(text);
+      const positionData = {
+        [`${selected.name.toLowerCase()}_pos_X`]: text.split("")[0],
+        [`${selected.name.toLowerCase()}_pos_Y`]: text.split("")[1],
+      };
+      console.log(positionData);
+      axios.post("http://localhost:8082/api/odontograma/create", {
+        paciente_id: selectedPatient.id,
+        ...positionData,
+      });
+      window.location.reload();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   useEffect(() => {
@@ -875,12 +904,20 @@ export default function Odontograma() {
     tooth_11.node.onmouseover = function () {
       f_onmouseover(tooth_11, t11_text);
     };
+    tooth_11.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t11_text.attrs.text);
+    };
     tooth_11.node.onmouseout = function () {
       f_onmouseout(tooth_11, t11_text);
     };
 
     tooth_12.node.onmouseover = function () {
       f_onmouseover(tooth_12, t12_text);
+    };
+    tooth_12.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t12_text.attrs.text);
     };
     tooth_12.node.onmouseout = function () {
       f_onmouseout(tooth_12, t12_text);
@@ -889,12 +926,20 @@ export default function Odontograma() {
     tooth_13.node.onmouseover = function () {
       f_onmouseover(tooth_13, t13_text);
     };
+    tooth_13.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t13_text.attrs.text);
+    };
     tooth_13.node.onmouseout = function () {
       f_onmouseout(tooth_13, t13_text);
     };
 
     tooth_14.node.onmouseover = function () {
       f_onmouseover(tooth_14, t14_text);
+    };
+    tooth_14.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t14_text.attrs.text);
     };
     tooth_14.node.onmouseout = function () {
       f_onmouseout(tooth_14, t14_text);
@@ -903,12 +948,20 @@ export default function Odontograma() {
     tooth_15.node.onmouseover = function () {
       f_onmouseover(tooth_15, t15_text);
     };
+    tooth_15.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t15_text.attrs.text);
+    };
     tooth_15.node.onmouseout = function () {
       f_onmouseout(tooth_15, t15_text);
     };
 
     tooth_16.node.onmouseover = function () {
       f_onmouseover(tooth_16, t16_text);
+    };
+    tooth_16.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t16_text.attrs.text);
     };
     tooth_16.node.onmouseout = function () {
       f_onmouseout(tooth_16, t16_text);
@@ -917,12 +970,20 @@ export default function Odontograma() {
     tooth_17.node.onmouseover = function () {
       f_onmouseover(tooth_17, t17_text);
     };
+    tooth_17.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t17_text.attrs.text);
+    };
     tooth_17.node.onmouseout = function () {
       f_onmouseout(tooth_17, t17_text);
     };
 
     tooth_18.node.onmouseover = function () {
       f_onmouseover(tooth_18, t18_text);
+    };
+    tooth_18.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t18_text.attrs.text);
     };
     tooth_18.node.onmouseout = function () {
       f_onmouseout(tooth_18, t18_text);
@@ -931,12 +992,20 @@ export default function Odontograma() {
     tooth_21.node.onmouseover = function () {
       f_onmouseover(tooth_21, t21_text);
     };
+    tooth_21.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t21_text.attrs.text);
+    };
     tooth_21.node.onmouseout = function () {
       f_onmouseout(tooth_21, t21_text);
     };
 
     tooth_22.node.onmouseover = function () {
       f_onmouseover(tooth_22, t22_text);
+    };
+    tooth_22.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t22_text.attrs.text);
     };
     tooth_22.node.onmouseout = function () {
       f_onmouseout(tooth_22, t22_text);
@@ -945,12 +1014,20 @@ export default function Odontograma() {
     tooth_23.node.onmouseover = function () {
       f_onmouseover(tooth_23, t23_text);
     };
+    tooth_23.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t23_text.attrs.text);
+    };
     tooth_23.node.onmouseout = function () {
       f_onmouseout(tooth_23, t23_text);
     };
 
     tooth_24.node.onmouseover = function () {
       f_onmouseover(tooth_24, t24_text);
+    };
+    tooth_24.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t24_text.attrs.text);
     };
     tooth_24.node.onmouseout = function () {
       f_onmouseout(tooth_24, t24_text);
@@ -959,12 +1036,20 @@ export default function Odontograma() {
     tooth_25.node.onmouseover = function () {
       f_onmouseover(tooth_25, t25_text);
     };
+    tooth_25.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t25_text.attrs.text);
+    };
     tooth_25.node.onmouseout = function () {
       f_onmouseout(tooth_25, t25_text);
     };
 
     tooth_26.node.onmouseover = function () {
       f_onmouseover(tooth_26, t26_text);
+    };
+    tooth_26.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t26_text.attrs.text);
     };
     tooth_26.node.onmouseout = function () {
       f_onmouseout(tooth_26, t26_text);
@@ -973,12 +1058,20 @@ export default function Odontograma() {
     tooth_27.node.onmouseover = function () {
       f_onmouseover(tooth_27, t27_text);
     };
+    tooth_27.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t27_text.attrs.text);
+    };
     tooth_27.node.onmouseout = function () {
       f_onmouseout(tooth_27, t27_text);
     };
 
     tooth_28.node.onmouseover = function () {
       f_onmouseover(tooth_28, t28_text);
+    };
+    tooth_28.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t28_text.attrs.text);
     };
     tooth_28.node.onmouseout = function () {
       f_onmouseout(tooth_28, t28_text);
@@ -987,12 +1080,20 @@ export default function Odontograma() {
     tooth_31.node.onmouseover = function () {
       f_onmouseover(tooth_31, t31_text);
     };
+    tooth_31.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t31_text.attrs.text);
+    };
     tooth_31.node.onmouseout = function () {
       f_onmouseout(tooth_31, t31_text);
     };
 
     tooth_32.node.onmouseover = function () {
       f_onmouseover(tooth_32, t32_text);
+    };
+    tooth_32.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t32_text.attrs.text);
     };
     tooth_32.node.onmouseout = function () {
       f_onmouseout(tooth_32, t32_text);
@@ -1001,12 +1102,20 @@ export default function Odontograma() {
     tooth_33.node.onmouseover = function () {
       f_onmouseover(tooth_33, t33_text);
     };
+    tooth_33.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t33_text.attrs.text);
+    };
     tooth_33.node.onmouseout = function () {
       f_onmouseout(tooth_33, t33_text);
     };
 
     tooth_34.node.onmouseover = function () {
       f_onmouseover(tooth_34, t34_text);
+    };
+    tooth_34.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t34_text.attrs.text);
     };
     tooth_34.node.onmouseout = function () {
       f_onmouseout(tooth_34, t34_text);
@@ -1015,12 +1124,20 @@ export default function Odontograma() {
     tooth_35.node.onmouseover = function () {
       f_onmouseover(tooth_35, t35_text);
     };
+    tooth_35.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t35_text.attrs.text);
+    };
     tooth_35.node.onmouseout = function () {
       f_onmouseout(tooth_35, t35_text);
     };
 
     tooth_36.node.onmouseover = function () {
       f_onmouseover(tooth_36, t36_text);
+    };
+    tooth_36.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t36_text.attrs.text);
     };
     tooth_36.node.onmouseout = function () {
       f_onmouseout(tooth_36, t36_text);
@@ -1029,12 +1146,20 @@ export default function Odontograma() {
     tooth_37.node.onmouseover = function () {
       f_onmouseover(tooth_37, t37_text);
     };
+    tooth_37.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t37_text.attrs.text);
+    };
     tooth_37.node.onmouseout = function () {
       f_onmouseout(tooth_37, t37_text);
     };
 
     tooth_38.node.onmouseover = function () {
       f_onmouseover(tooth_38, t38_text);
+    };
+    tooth_38.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t38_text.attrs.text);
     };
     tooth_38.node.onmouseout = function () {
       f_onmouseout(tooth_38, t38_text);
@@ -1043,12 +1168,20 @@ export default function Odontograma() {
     tooth_41.node.onmouseover = function () {
       f_onmouseover(tooth_41, t41_text);
     };
+    tooth_41.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t41_text.attrs.text);
+    };
     tooth_41.node.onmouseout = function () {
       f_onmouseout(tooth_41, t41_text);
     };
 
     tooth_42.node.onmouseover = function () {
       f_onmouseover(tooth_42, t42_text);
+    };
+    tooth_42.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t42_text.attrs.text);
     };
     tooth_42.node.onmouseout = function () {
       f_onmouseout(tooth_42, t42_text);
@@ -1057,12 +1190,20 @@ export default function Odontograma() {
     tooth_43.node.onmouseover = function () {
       f_onmouseover(tooth_43, t43_text);
     };
+    tooth_43.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t43_text.attrs.text);
+    };
     tooth_43.node.onmouseout = function () {
       f_onmouseout(tooth_43, t43_text);
     };
 
     tooth_44.node.onmouseover = function () {
       f_onmouseover(tooth_44, t44_text);
+    };
+    tooth_44.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t44_text.attrs.text);
     };
     tooth_44.node.onmouseout = function () {
       f_onmouseout(tooth_44, t44_text);
@@ -1071,12 +1212,20 @@ export default function Odontograma() {
     tooth_45.node.onmouseover = function () {
       f_onmouseover(tooth_45, t45_text);
     };
+    tooth_45.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t45_text.attrs.text);
+    };
     tooth_45.node.onmouseout = function () {
       f_onmouseout(tooth_45, t45_text);
     };
 
     tooth_46.node.onmouseover = function () {
       f_onmouseover(tooth_46, t46_text);
+    };
+    tooth_46.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t46_text.attrs.text);
     };
     tooth_46.node.onmouseout = function () {
       f_onmouseout(tooth_46, t46_text);
@@ -1085,12 +1234,20 @@ export default function Odontograma() {
     tooth_47.node.onmouseover = function () {
       f_onmouseover(tooth_47, t47_text);
     };
+    tooth_47.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t47_text.attrs.text);
+    };
     tooth_47.node.onmouseout = function () {
       f_onmouseout(tooth_47, t47_text);
     };
 
     tooth_48.node.onmouseover = function () {
       f_onmouseover(tooth_48, t48_text);
+    };
+    tooth_48.node.onclick = function () {
+      setVisible(true);
+      setSelectedTooth(t48_text.attrs.text);
     };
     tooth_48.node.onmouseout = function () {
       f_onmouseout(tooth_48, t48_text);
@@ -1101,6 +1258,43 @@ export default function Odontograma() {
     <>
       <div>
         <div className="pt-5 mt-5" id="canvas_container"></div>
+        <Dialog
+          position="top"
+          header="Actualizar datos"
+          visible={visible}
+          style={{ width: "20vw" }}
+          draggable={false}
+          onHide={() => {
+            if (!visible) return;
+            setVisible(false);
+          }}
+        >
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            style={{ textAlign: "center" }}
+          >
+            <div>
+              <Dropdown
+                options={enfermedades}
+                optionLabel="name"
+                value={selected}
+                onChange={(e) => setSelected(e.target.value)}
+                type="text"
+              />
+            </div>
+
+            <Button
+              icon="pi pi-plus-circle"
+              rounded
+              outlined
+              severity="success"
+              onClick={() => {
+                handleRegister(selectedTooth);
+              }}
+              style={{ marginLeft: "10px", marginTop: "10px" }}
+            />
+          </form>
+        </Dialog>
       </div>
     </>
   );
